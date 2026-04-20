@@ -6,12 +6,7 @@
     <title>Bakra Mandi - Eid Livestock Marketplace</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary-green: #1a5d3d;
             --gold: #d4af37;
@@ -48,571 +43,90 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-            cursor: pointer;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
+        .logo { font-size: 1.8rem; font-weight: 800; font-family: 'Playfair Display', serif; cursor: pointer; }
+        nav { display: flex; gap: 1.5rem; }
         nav button {
-            color: white;
-            background: none;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 1rem;
+            color: white; background: none; border: none;
+            font-weight: 500; cursor: pointer; font-size: 0.95rem;
             transition: color 0.3s;
         }
-
-        nav button:hover {
-            color: var(--gold);
-        }
-
-        .cart-icon {
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+        nav button:hover { color: var(--gold); }
 
         /* ===== PAGES ===== */
-        .page {
-            display: none;
-            min-height: 80vh;
-        }
-
-        .page.active {
-            display: block;
-        }
+        .page { display: none; min-height: 80vh; padding: 4rem 0; }
+        .page.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* ===== HERO ===== */
         .hero {
-            background: linear-gradient(rgba(26, 93, 61, 0.7), rgba(26, 93, 61, 0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a5d3d" width="1200" height="600"/></svg>');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 8rem 2rem;
-            text-align: center;
+            background: linear-gradient(rgba(26, 93, 61, 0.8), rgba(26, 93, 61, 0.8));
+            color: white; padding: 10rem 2rem; text-align: center; margin-top: -4rem;
         }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: var(--cream);
-        }
-
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; margin-bottom: 1rem; }
         .cta-button {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--primary-green);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            border: 2px solid var(--gold);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
+            display: inline-block; background: var(--gold); color: var(--primary-green);
+            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            font-weight: 700; cursor: pointer; transition: all 0.3s; border: none;
         }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .cta-button:hover {
-            background: transparent;
-            color: var(--gold);
-        }
-
-        /* ===== SECTION TITLE ===== */
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-green);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* ===== SHOP PAGE ===== */
-        .filters {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
+        /* ===== SHOP & GRID ===== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-green); margin-bottom: 2rem; }
+        
+        .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
         .filter-btn {
-            padding: 0.7rem 1.5rem;
-            border: 2px solid var(--primary-green);
-            background: white;
-            color: var(--primary-green);
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+            padding: 0.6rem 1.5rem; border: 2px solid var(--primary-green);
+            border-radius: 25px; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
+        .filter-btn.active { background: var(--primary-green); color: white; }
 
-        .filter-btn.active {
-            background: var(--primary-green);
-            color: white;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
         .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s;
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
         }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(26, 93, 61, 0.2);
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .product-img-placeholder {
+            height: 200px; background: #eee; display: flex; align-items: center; 
+            justify-content: center; font-size: 4rem;
         }
+        .product-info { padding: 1.5rem; }
+        .price { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
 
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, var(--cream), #e8dcc8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+        /* ===== MODALS & LIGHTBOX ===== */
+        .modal, .lightbox {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
         }
+        .modal.active, .lightbox.active { display: flex; }
+        .modal-content { background: white; padding: 2rem; border-radius: 15px; max-width: 500px; width: 90%; position: relative; }
+        .lightbox-img { font-size: 15rem; background: white; padding: 3rem; border-radius: 15px; }
+        .close-btn { position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem; }
 
-        .product-info {
-            padding: 1.5rem;
+        /* ===== CONFIG & FORM ===== */
+        .config-card { background: white; padding: 2rem; border-radius: 15px; margin-bottom: 1rem; }
+        .config-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid #eee; }
+        
+        .contact-form { background: white; padding: 2.5rem; border-radius: 15px; max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
         }
+        .submit-btn { width: 100%; padding: 1rem; background: var(--primary-green); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
 
-        .product-type {
-            display: inline-block;
-            background: var(--light-green);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+        .gallery-item { background: white; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border-radius: 10px; cursor: pointer; }
 
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary-green);
-        }
-
-        .product-details {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .product-details p {
-            margin: 0.3rem 0;
-        }
-
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .add-to-cart-btn:hover {
-            background: var(--light-green);
-        }
-
-        /* ===== MODAL ===== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            max-width: 700px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--primary-green);
-        }
-
-        .modal-image {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, var(--cream), #e8dcc8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-        }
-
-        .modal-price {
-            font-size: 2rem;
-            color: var(--gold);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .modal-details {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .modal-details p {
-            margin-bottom: 0.5rem;
-        }
-
-        /* ===== GALLERY ===== */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .gallery-item {
-            cursor: pointer;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 200px;
-            background: linear-gradient(135deg, var(--cream), #e8dcc8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        /* ===== LIGHTBOX ===== */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .lightbox-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            font-size: 10rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--cream), #e8dcc8);
-            padding: 2rem;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        /* ===== CONTACT FORM ===== */
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--primary-green);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-green);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: var(--light-green);
-        }
-
-        .success-message {
-            background: #4caf50;
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        /* ===== CONFIGURATION PAGE ===== */
-        .config-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .config-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .config-section h3 {
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .config-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .config-item:last-child {
-            border-bottom: none;
-        }
-
-        .config-label {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .config-value {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
-            color: white;
-            padding: 4rem 2rem;
-            margin: 4rem 0;
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-item {
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-item h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--primary-green);
-            color: white;
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--gold);
-        }
-
-        .footer-section a {
-            display: block;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 2rem;
-            color: rgba(255,255,255,0.8);
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-        }
+        footer { background: var(--primary-green); color: white; padding: 3rem 2rem; text-align: center; margin-top: 4rem; }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
+
     <header>
         <div class="header-container">
-            <div class="logo" onclick="showPage('home')">🐐 Bakra Mandi 🐄</div>
+            <div class="logo" onclick="showPage('home')">🐐 Bakra Mandi</div>
             <nav>
                 <button onclick="showPage('home')">Home</button>
                 <button onclick="showPage('shop')">Shop</button>
@@ -620,269 +134,118 @@
                 <button onclick="showPage('contact')">Contact</button>
                 <button onclick="showPage('config')">⚙️ Configure</button>
             </nav>
-            <div class="cart-icon">🛒</div>
         </div>
     </header>
 
-    <!-- HOME PAGE -->
     <div id="home" class="page active">
         <section class="hero">
-            <div class="container">
-                <h1>🐐 Bakra Mandi 🐄</h1>
-                <p>Premium Quality Livestock for Eid - Direct from Trusted Sellers</p>
-                <button class="cta-button" onclick="showPage('shop')">Browse Livestock</button>
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="features-container">
-                <div class="feature-item">
-                    <div class="feature-icon">✅</div>
-                    <h3>Verified Sellers</h3>
-                    <p>All sellers are verified and trusted</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🚚</div>
-                    <h3>Fast Delivery</h3>
-                    <p>Quick and safe transportation</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💰</div>
-                    <h3>Best Prices</h3>
-                    <p>Competitive rates guaranteed</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📞</div>
-                    <h3>24/7 Support</h3>
-                    <p>Always here to help</p>
-                </div>
-            </div>
+            <h1>Premium Eid Livestock</h1>
+            <p>Healthy, Verified, and Beautiful Animals for your Qurbani</p>
+            <button class="cta-button" onclick="showPage('shop')">Start Shopping</button>
         </section>
     </div>
 
-    <!-- SHOP PAGE -->
     <div id="shop" class="page">
-        <div class="container" style="padding-top: 2rem;">
-            <h2 class="section-title">🐑 Our Livestock 🐑</h2>
-            <p class="section-subtitle">Select from our premium collection of healthy and strong animals</p>
-
+        <div class="container">
+            <h2 class="section-title">Livestock Marketplace</h2>
             <div class="filters">
-                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-                <button class="filter-btn" onclick="filterProducts('goat')">Goats</button>
-                <button class="filter-btn" onclick="filterProducts('cow')">Cows</button>
-                <button class="filter-btn" onclick="filterProducts('sheep')">Sheep</button>
+                <button class="filter-btn active" onclick="filterShop('all', event)">All</button>
+                <button class="filter-btn" onclick="filterShop('goat', event)">Goats</button>
+                <button class="filter-btn" onclick="filterShop('cow', event)">Cows</button>
             </div>
-
             <div class="products-grid" id="productsGrid"></div>
         </div>
     </div>
 
-    <!-- GALLERY PAGE -->
     <div id="gallery" class="page">
-        <div class="container" style="padding-top: 2rem;">
-            <h2 class="section-title">📸 Gallery 📸</h2>
-            <p class="section-subtitle">Browse our collection of beautiful livestock</p>
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
             <div class="gallery-grid" id="galleryGrid"></div>
         </div>
     </div>
 
-    <!-- CONTACT PAGE -->
     <div id="contact" class="page">
-        <div class="container" style="padding-top: 2rem;">
-            <h2 class="section-title">📞 Contact Us 📞</h2>
-            <p class="section-subtitle">Get in touch with our team</p>
-            <form class="contact-form" onsubmit="submitContact(event)">
-                <div id="successMessage"></div>
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <form class="contact-form" id="mainContactForm">
                 <div class="form-group">
-                    <label>Name *</label>
-                    <input type="text" id="contactName" required>
+                    <label>Full Name</label>
+                    <input type="text" id="name" required placeholder="Enter your name">
                 </div>
                 <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="contactEmail" required>
+                    <label>Email Address</label>
+                    <input type="email" id="email" required placeholder="email@example.com">
                 </div>
                 <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="contactPhone">
-                </div>
-                <div class="form-group">
-                    <label>Message *</label>
-                    <textarea id="contactMessage" required></textarea>
+                    <label>Message</label>
+                    <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
     </div>
 
-    <!-- CONFIGURATION PAGE -->
     <div id="config" class="page">
-        <div class="config-container">
-            <h2 class="section-title">⚙️ Configuration ⚙️</h2>
-            
-            <div class="config-section">
-                <h3>Website Information</h3>
-                <div class="config-item">
-                    <span class="config-label">Website Name:</span>
-                    <span class="config-value">Bakra Mandi</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Theme:</span>
-                    <span class="config-value">Eid Celebration</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Primary Color:</span>
-                    <span class="config-value">#1a5d3d (Green)</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Accent Color:</span>
-                    <span class="config-value">#d4af37 (Gold)</span>
-                </div>
+        <div class="container" style="max-width: 800px;">
+            <h2 class="section-title">System Settings</h2>
+            <div class="config-card">
+                <h3>Store Status</h3>
+                <div class="config-row"><span>Backend Connection</span><span style="color: green;">● Online</span></div>
+                <div class="config-row"><span>Inventory API</span><span>v2.4.0</span></div>
+                <div class="config-row"><span>Currency</span><span>PKR</span></div>
             </div>
-
-            <div class="config-section">
-                <h3>Business Settings</h3>
-                <div class="config-item">
-                    <span class="config-label">Currency:</span>
-                    <span class="config-value">PKR (Pakistani Rupee)</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Payment Gateway:</span>
-                    <span class="config-value">Stripe</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Email Service:</span>
-                    <span class="config-value">Nodemailer</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Database:</span>
-                    <span class="config-value">MongoDB</span>
-                </div>
-            </div>
-
-            <div class="config-section">
-                <h3>Contact Information</h3>
-                <div class="config-item">
-                    <span class="config-label">Phone:</span>
-                    <span class="config-value">+92 300 1234567</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Email:</span>
-                    <span class="config-value">info@bakramandi.com</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Location:</span>
-                    <span class="config-value">Lahore, Pakistan</span>
-                </div>
-            </div>
-
-            <div class="config-section">
-                <h3>API Endpoints</h3>
-                <div class="config-item">
-                    <span class="config-label">Base URL:</span>
-                    <span class="config-value">/api</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Livestock API:</span>
-                    <span class="config-value">/api/livestock</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Orders API:</span>
-                    <span class="config-value">/api/orders</span>
-                </div>
-                <div class="config-item">
-                    <span class="config-label">Contact API:</span>
-                    <span class="config-value">/api/contact</span>
-                </div>
+            <div class="config-card">
+                <h3>Business Info</h3>
+                <div class="config-row"><span>Support Email</span><span>admin@bakramandi.pk</span></div>
+                <div class="config-row"><span>Location</span><span>Lahore, Punjab</span></div>
             </div>
         </div>
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
     <div class="modal" id="productModal">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">✕</button>
-            <div class="modal-image" id="modalImage">🐐</div>
-            <h2 class="modal-title" id="modalTitle">Product Name</h2>
-            <div class="modal-price" id="modalPrice">PKR 0</div>
-            <div class="modal-details" id="modalDetails"></div>
-            <button class="add-to-cart-btn" onclick="closeModal()">Add to Cart</button>
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <div id="modalBody"></div>
         </div>
     </div>
 
-    <!-- GALLERY LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-content">
-            <div class="lightbox-close" onclick="closeLightbox()">✕</div>
-            <div class="lightbox-image" id="lightboxImage">🐐</div>
-        </div>
+    <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+        <div class="lightbox-img" id="lightboxTarget"></div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>About Bakra Mandi</h3>
-                <p>Your trusted marketplace for premium livestock during Eid season. Quality assured, seller verified.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#" onclick="showPage('home')">Home</a>
-                <a href="#" onclick="showPage('shop')">Shop</a>
-                <a href="#" onclick="showPage('gallery')">Gallery</a>
-                <a href="#" onclick="showPage('contact')">Contact</a>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>📞 +92 300 1234567</p>
-                <p>📧 info@bakramandi.com</p>
-                <p>📍 Lahore, Pakistan</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Bakra Mandi. All rights reserved. Eid Mubarak! 🌙</p>
-        </div>
+        <p>&copy; 2026 Bakra Mandi. All rights reserved. 🌙</p>
     </footer>
 
     <script>
-        // Sample livestock data
         const livestock = [
-            { id: 1, name: 'Premium White Goat', type: 'goat', price: 25000, weight: '45-50 kg', age: '2-3 years', seller: 'Ahmed Farm', phone: '+92 300 1111111', image: '🐐' },
-            { id: 2, name: 'Black Goat', type: 'goat', price: 22000, weight: '40-45 kg', age: '2 years', seller: 'Hassan Livestock', phone: '+92 300 2222222', image: '🐐' },
-            { id: 3, name: 'Brown Cow', type: 'cow', price: 85000, weight: '300-350 kg', age: '3-4 years', seller: 'Malik Dairy', phone: '+92 300 3333333', image: '🐄' },
-            { id: 4, name: 'White Cow', type: 'cow', price: 95000, weight: '320-380 kg', age: '3-5 years', seller: 'Premium Cattle', phone: '+92 300 4444444', image: '🐄' },
-            { id: 5, name: 'Black Sheep', type: 'sheep', price: 18000, weight: '35-40 kg', age: '2 years', seller: 'Sheep King', phone: '+92 300 5555555', image: '🐑' },
-            { id: 6, name: 'White Sheep', type: 'sheep', price: 16000, weight: '30-35 kg', age: '1.5 years', seller: 'Wool Traders', phone: '+92 300 6666666', image: '🐑' },
-            { id: 7, name: 'Premium Goat Pair', type: 'goat', price: 45000, weight: '85-95 kg', age: '2-3 years', seller: 'Twin Goats Farm', phone: '+92 300 7777777', image: '🐐' },
-            { id: 8, name: 'Desi Cow', type: 'cow', price: 75000, weight: '280-320 kg', age: '2-3 years', seller: 'Local Farmers', phone: '+92 300 8888888', image: '🐄' },
+            { id: 1, name: 'Kamori Goat', type: 'goat', price: 45000, weight: '55kg', icon: '🐐' },
+            { id: 2, name: 'Sahiwal Bull', type: 'cow', price: 185000, weight: '320kg', icon: '🐂' },
+            { id: 3, name: 'Beetal Bakra', type: 'goat', price: 38000, weight: '48kg', icon: '🐐' },
+            { id: 4, name: 'Cholistani Cow', type: 'cow', price: 155000, weight: '280kg', icon: '🐄' },
+            { id: 5, name: 'White Teddy', type: 'goat', price: 25000, weight: '35kg', icon: '🐐' },
+            { id: 6, name: 'Gulabi Pather', type: 'goat', price: 65000, weight: '60kg', icon: '🐐' }
         ];
 
-        function showPage(pageName) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(pageName).classList.add('active');
-            window.scrollTo(0, 0);
-            
-            if (pageName === 'shop') renderProducts();
-            if (pageName === 'gallery') renderGallery();
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+            if(id === 'shop') renderShop('all');
+            if(id === 'gallery') renderGallery();
         }
 
-        function renderProducts(filter = 'all') {
+        function renderShop(filter) {
             const grid = document.getElementById('productsGrid');
-            const filtered = filter === 'all' ? livestock : livestock.filter(item => item.type === filter);
-            
-            grid.innerHTML = filtered.map(item => `
-                <div class="product-card" onclick="openProductModal(${item.id})">
-                    <div class="product-image">${item.image}</div>
+            const data = filter === 'all' ? livestock : livestock.filter(l => l.type === filter);
+            grid.innerHTML = data.map(item => `
+                <div class="product-card" onclick="openProduct(${item.id})">
+                    <div class="product-img-placeholder">${item.icon}</div>
                     <div class="product-info">
-                        <span class="product-type">${item.type.toUpperCase()}</span>
-                        <h3 class="product-name">${item.name}</h3>
-                        <div class="product-details">
-                            <p>⚖️ Weight: ${item.weight}</p>
-                            <p>📅 Age: ${item.age}</p>
-                        </div>
-                        <div class="product-price">PKR ${item.price.toLocaleString()}</div>
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); alert('Added to cart!')">
-                            Add to Cart
-                        </button>
+                        <p style="text-transform: uppercase; font-size: 0.7rem; color: #888;">${item.type}</p>
+                        <h3>${item.name}</h3>
+                        <p>Weight: ${item.weight}</p>
+                        <div class="price">Rs. ${item.price.toLocaleString()}</div>
                     </div>
                 </div>
             `).join('');
@@ -890,81 +253,20 @@
 
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = livestock.map((item, index) => `
-                <div class="gallery-item" onclick="openLightbox(${index})">${item.image}</div>
+            grid.innerHTML = livestock.map(item => `
+                <div class="gallery-item" onclick="openLightbox('${item.icon}')">${item.icon}</div>
             `).join('');
         }
 
-        function filterProducts(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts(type);
+        function filterShop(type, e) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            renderShop(type);
         }
 
-        function openProductModal(id) {
-            const product = livestock.find(l => l.id === id);
-            document.getElementById('modalImage').textContent = product.image;
-            document.getElementById('modalTitle').textContent = product.name;
-            document.getElementById('modalPrice').textContent = `PKR ${product.price.toLocaleString()}`;
-            document.getElementById('modalDetails').innerHTML = `
-                <p><strong>Type:</strong> ${product.type.toUpperCase()}</p>
-                <p><strong>Weight:</strong> ${product.weight}</p>
-                <p><strong>Age:</strong> ${product.age}</p>
-                <p><strong>Seller:</strong> ${product.seller}</p>
-                <p><strong>Phone:</strong> ${product.phone}</p>
-            `;
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('productModal').classList.remove('active');
-        }
-
-        function openLightbox(index) {
-            document.getElementById('lightboxImage').textContent = livestock[index].image;
-            document.getElementById('lightbox').classList.add('active');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        function submitContact(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const phone = document.getElementById('contactPhone').value;
-            const message = document.getElementById('contactMessage').value;
-            
-            // Send to backend API
-            fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, phone, message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('successMessage').innerHTML = '<div class="success-message">✓ Message sent successfully! We\'ll contact you soon.</div>';
-                document.getElementById('contactName').value = '';
-                document.getElementById('contactEmail').value = '';
-                document.getElementById('contactPhone').value = '';
-                document.getElementById('contactMessage').value = '';
-                setTimeout(() => {
-                    document.getElementById('successMessage').innerHTML = '';
-                }, 5000);
-            })
-            .catch(error => {
-                document.getElementById('successMessage').innerHTML = '<div class="success-message">✓ Message received! We\'ll contact you soon.</div>';
-                document.getElementById('contactName').value = '';
-                document.getElementById('contactEmail').value = '';
-                document.getElementById('contactPhone').value = '';
-                document.getElementById('contactMessage').value = '';
-            });
-        }
-
-        // Initial render
-        renderProducts();
-    </script>
-</body>
-</html>
+        function openProduct(id) {
+            const item = livestock.find(l => l.id === id);
+            document.getElementById('modalBody').innerHTML = `
+                <h2 style="color: var(--primary-green)">${item.name}</h2>
+                <p style="font-size: 2rem; margin: 1rem 0;">${item.icon}</p>
+                <p><strong>Specifications:</strong></
