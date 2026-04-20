@@ -1,272 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bakra Mandi - Eid Livestock Marketplace</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary-green: #1a5d3d;
-            --gold: #d4af37;
-            --light-green: #2d8659;
-            --cream: #f5f1e8;
-            --dark: #0a0a0a;
-            --text: #2c2c2c;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--cream) 0%, #e8dcc8 100%);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(26, 93, 61, 0.3);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo { font-size: 1.8rem; font-weight: 800; font-family: 'Playfair Display', serif; cursor: pointer; }
-        nav { display: flex; gap: 1.5rem; }
-        nav button {
-            color: white; background: none; border: none;
-            font-weight: 500; cursor: pointer; font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-        nav button:hover { color: var(--gold); }
-
-        /* ===== PAGES ===== */
-        .page { display: none; min-height: 80vh; padding: 4rem 0; }
-        .page.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* ===== HERO ===== */
-        .hero {
-            background: linear-gradient(rgba(26, 93, 61, 0.8), rgba(26, 93, 61, 0.8));
-            color: white; padding: 10rem 2rem; text-align: center; margin-top: -4rem;
-        }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; margin-bottom: 1rem; }
-        .cta-button {
-            display: inline-block; background: var(--gold); color: var(--primary-green);
-            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
-            font-weight: 700; cursor: pointer; transition: all 0.3s; border: none;
-        }
-        .cta-button:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-
-        /* ===== SHOP & GRID ===== */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-green); margin-bottom: 2rem; }
+<script>
+    /**
+     * core navigation function
+     * @param {string} pageId - The ID of the div to display
+     */
+    function showPage(pageId) {
+        console.log("Switching to page:", pageId);
         
-        .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
-        .filter-btn {
-            padding: 0.6rem 1.5rem; border: 2px solid var(--primary-green);
-            border-radius: 25px; cursor: pointer; font-weight: 600; transition: 0.3s;
-        }
-        .filter-btn.active { background: var(--primary-green); color: white; }
-
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-        .product-card {
-            background: white; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
-        }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .product-img-placeholder {
-            height: 200px; background: #eee; display: flex; align-items: center; 
-            justify-content: center; font-size: 4rem;
-        }
-        .product-info { padding: 1.5rem; }
-        .price { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
-
-        /* ===== MODALS & LIGHTBOX ===== */
-        .modal, .lightbox {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
-        }
-        .modal.active, .lightbox.active { display: flex; }
-        .modal-content { background: white; padding: 2rem; border-radius: 15px; max-width: 500px; width: 90%; position: relative; }
-        .lightbox-img { font-size: 15rem; background: white; padding: 3rem; border-radius: 15px; }
-        .close-btn { position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem; }
-
-        /* ===== CONFIG & FORM ===== */
-        .config-card { background: white; padding: 2rem; border-radius: 15px; margin-bottom: 1rem; }
-        .config-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid #eee; }
+        // 1. Get all elements with the 'page' class
+        const pages = document.querySelectorAll('.page');
         
-        .contact-form { background: white; padding: 2.5rem; border-radius: 15px; max-width: 600px; margin: 0 auto; }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
+        // 2. Hide every single one of them 
+        // We use display: none to ensure they don't take up space
+        pages.forEach(page => {
+            page.style.display = 'none';
+            page.classList.remove('active');
+        });
+
+        // 3. Find the specific page requested
+        const targetPage = document.getElementById(pageId);
+        
+        if (targetPage) {
+            targetPage.style.display = 'block';
+            targetPage.classList.add('active');
+            window.scrollTo(0, 0); // Reset scroll to top
+            
+            // 4. Trigger specific data loading for dynamic pages
+            if (pageId === 'shop') renderProducts();
+            if (pageId === 'gallery') renderGallery();
+            
+            console.log("Success: Navigation to " + pageId + " complete.");
+        } else {
+            console.error("Critical Error: Could not find an element with ID '" + pageId + "'. Check your HTML IDs.");
         }
-        .submit-btn { width: 100%; padding: 1rem; background: var(--primary-green); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
-        .gallery-item { background: white; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border-radius: 10px; cursor: pointer; }
-
-        footer { background: var(--primary-green); color: white; padding: 3rem 2rem; text-align: center; margin-top: 4rem; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="header-container">
-            <div class="logo" onclick="showPage('home')">🐐 Bakra Mandi</div>
-            <nav>
-                <button onclick="showPage('home')">Home</button>
-                <button onclick="showPage('shop')">Shop</button>
-                <button onclick="showPage('gallery')">Gallery</button>
-                <button onclick="showPage('contact')">Contact</button>
-                <button onclick="showPage('config')">⚙️ Configure</button>
-            </nav>
-        </div>
-    </header>
-
-    <div id="home" class="page active">
-        <section class="hero">
-            <h1>Premium Eid Livestock</h1>
-            <p>Healthy, Verified, and Beautiful Animals for your Qurbani</p>
-            <button class="cta-button" onclick="showPage('shop')">Start Shopping</button>
-        </section>
-    </div>
-
-    <div id="shop" class="page">
-        <div class="container">
-            <h2 class="section-title">Livestock Marketplace</h2>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterShop('all', event)">All</button>
-                <button class="filter-btn" onclick="filterShop('goat', event)">Goats</button>
-                <button class="filter-btn" onclick="filterShop('cow', event)">Cows</button>
-            </div>
-            <div class="products-grid" id="productsGrid"></div>
-        </div>
-    </div>
-
-    <div id="gallery" class="page">
-        <div class="container">
-            <h2 class="section-title">Photo Gallery</h2>
-            <div class="gallery-grid" id="galleryGrid"></div>
-        </div>
-    </div>
-
-    <div id="contact" class="page">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <form class="contact-form" id="mainContactForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="name" required placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" required placeholder="email@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="config" class="page">
-        <div class="container" style="max-width: 800px;">
-            <h2 class="section-title">System Settings</h2>
-            <div class="config-card">
-                <h3>Store Status</h3>
-                <div class="config-row"><span>Backend Connection</span><span style="color: green;">● Online</span></div>
-                <div class="config-row"><span>Inventory API</span><span>v2.4.0</span></div>
-                <div class="config-row"><span>Currency</span><span>PKR</span></div>
-            </div>
-            <div class="config-card">
-                <h3>Business Info</h3>
-                <div class="config-row"><span>Support Email</span><span>admin@bakramandi.pk</span></div>
-                <div class="config-row"><span>Location</span><span>Lahore, Punjab</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
-    <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
-        <div class="lightbox-img" id="lightboxTarget"></div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Bakra Mandi. All rights reserved. 🌙</p>
-    </footer>
-
-    <script>
-        const livestock = [
-            { id: 1, name: 'Kamori Goat', type: 'goat', price: 45000, weight: '55kg', icon: '🐐' },
-            { id: 2, name: 'Sahiwal Bull', type: 'cow', price: 185000, weight: '320kg', icon: '🐂' },
-            { id: 3, name: 'Beetal Bakra', type: 'goat', price: 38000, weight: '48kg', icon: '🐐' },
-            { id: 4, name: 'Cholistani Cow', type: 'cow', price: 155000, weight: '280kg', icon: '🐄' },
-            { id: 5, name: 'White Teddy', type: 'goat', price: 25000, weight: '35kg', icon: '🐐' },
-            { id: 6, name: 'Gulabi Pather', type: 'goat', price: 65000, weight: '60kg', icon: '🐐' }
-        ];
-
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-            if(id === 'shop') renderShop('all');
-            if(id === 'gallery') renderGallery();
-        }
-
-        function renderShop(filter) {
-            const grid = document.getElementById('productsGrid');
-            const data = filter === 'all' ? livestock : livestock.filter(l => l.type === filter);
-            grid.innerHTML = data.map(item => `
-                <div class="product-card" onclick="openProduct(${item.id})">
-                    <div class="product-img-placeholder">${item.icon}</div>
-                    <div class="product-info">
-                        <p style="text-transform: uppercase; font-size: 0.7rem; color: #888;">${item.type}</p>
-                        <h3>${item.name}</h3>
-                        <p>Weight: ${item.weight}</p>
-                        <div class="price">Rs. ${item.price.toLocaleString()}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = livestock.map(item => `
-                <div class="gallery-item" onclick="openLightbox('${item.icon}')">${item.icon}</div>
-            `).join('');
-        }
-
-        function filterShop(type, e) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            renderShop(type);
-        }
-
-        function openProduct(id) {
-            const item = livestock.find(l => l.id === id);
-            document.getElementById('modalBody').innerHTML = `
-                <h2 style="color: var(--primary-green)">${item.name}</h2>
-                <p style="font-size: 2rem; margin: 1rem 0;">${item.icon}</p>
-                <p><strong>Specifications:</strong></
+    // Initialize the home page as soon as the window loads
+    window.onload = () => {
+        console.log("System Initialized...");
+        showPage('home');
+    };
+</script>
