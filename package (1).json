@@ -1,0 +1,22 @@
+{
+  "name": "bakra-mandi",
+  "version": "1.0.0",
+  "description": "Eid Livestock Marketplace - Bakra Mandi",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["bakra", "eid", "livestock", "marketplace"],
+  "author": "Bakra Mandi Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
